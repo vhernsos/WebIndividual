@@ -20,6 +20,7 @@
                 <li><a href="#personalidad">Personalidad</a></li>
                 <li><a href="#galeria">Galería</a></li>
                 <li><a href="#curiosidades">Curiosidades</a></li>
+                <li><a href="#comentarios">Comentarios</a></li>
             </ul>
         </nav>
     </header>
@@ -109,48 +110,33 @@
             </div>
         </section>
 
-        <!-- Galería tipo collage -->
+        <!-- Galería dinámica con base de datos -->
         <section id="galeria" class="seccion">
             <h2>Galería de fotos</h2>
 
-            <div class="galeria-grid">
-                <!-- Sustituye las rutas de ejemplo por tus fotos reales -->
-                <div class="item-galeria">
-                    <img src="img/imagen1.jpg" alt="Foto 1 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen2.jpg" alt="Foto 2 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen3.jpg" alt="Foto 3 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen4.jpg" alt="Foto 4 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen5.jpg" alt="Foto 5 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen6.jpg" alt="Foto 6 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen7.jpg" alt="Foto 1 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen8.jpg" alt="Foto 2 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen9.jpg" alt="Foto 3 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen10.jpg" alt="Foto 4 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen11.jpg" alt="Foto 5 de tu perra">
-                </div>
-                <div class="item-galeria">
-                    <img src="img/imagen12.jpg" alt="Foto 6 de tu perra">
-                </div>
+            <!-- Formulario para subir fotos -->
+            <div class="subir-foto-panel">
+                <h3>📷 Subir nueva foto</h3>
+                <form id="form-subir-foto" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" name="titulo" placeholder="Ej: Nela en el parque" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="descripcion">Descripción:</label>
+                        <input type="text" id="descripcion" name="descripcion" placeholder="Ej: Un día soleado de verano">
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">Imagen:</label>
+                        <input type="file" id="foto" name="foto" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn-subir">Subir foto</button>
+                </form>
+            </div>
+
+            <!-- Grid de fotos cargadas desde la BD -->
+            <div class="galeria-grid" id="galeria-dinamica">
+                <p class="sin-fotos">Cargando fotos…</p>
             </div>
         </section>
 
@@ -170,6 +156,32 @@
             </ul>
         </section>
 
+        <!-- Comentarios -->
+        <section id="comentarios" class="seccion">
+            <h2>Deja tu comentario sobre Nela 💬</h2>
+
+            <form id="formulario-comentario">
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="comentario">Comentario:</label>
+                    <textarea id="comentario" name="comentario" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn-enviar">Enviar comentario</button>
+            </form>
+
+            <div id="lista-comentarios">
+                <h3>Comentarios:</h3>
+                <div id="comentarios-container"></div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Pie de página -->
@@ -177,5 +189,6 @@
         <p>Presentación de Nela</p>
     </footer>
 
+    <script src="/public/script.js"></script>
 </body>
 </html>
