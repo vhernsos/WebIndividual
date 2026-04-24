@@ -69,6 +69,12 @@ db.serialize(() => {
     `);
 });
 
+// ─── Ruta raíz ────────────────────────────────────────────────────────────────
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'nela.html'));
+});
+
 // ─── Rutas – Fotos ─────────────────────────────────────────────────────────────
 
 // GET /api/fotos – listar todas las fotos
