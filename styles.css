@@ -168,14 +168,14 @@ footer {
 
 .item-galeria {
     position: relative;
-    overflow: hidden;
     border-radius: 6px;
 }
 
 .item-galeria img {
     width: 100%;
-    height: 250px;
-    object-fit: cover;
+    height: auto;
+    min-height: 150px;
+    object-fit: contain;
     border-radius: 6px;
     display: block;
     transition: transform 0.3s ease;
