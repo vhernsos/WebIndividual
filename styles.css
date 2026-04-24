@@ -155,13 +155,6 @@ main {
     margin-top: 1rem;
 }
 
-.item-galeria img {
-    width: 100%;
-    height: 350px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
 /* Footer */
 
 footer {
@@ -169,4 +162,229 @@ footer {
     padding: 1rem 0;
     font-size: 0.9rem;
     color: #666;
+}
+
+/* ─── Galería dinámica ─────────────────────────────────────────────────────── */
+
+.item-galeria {
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
+}
+
+.item-galeria img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.item-galeria:hover img {
+    transform: scale(1.04);
+}
+
+/* Overlay al pasar el ratón */
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0.75rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: 6px;
+}
+
+.item-galeria:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-titulo {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+.overlay-desc {
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+    opacity: 0.9;
+}
+
+.overlay-fecha {
+    font-size: 0.78rem;
+    opacity: 0.75;
+}
+
+/* Botón eliminar */
+
+.btn-eliminar {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: rgba(200, 30, 30, 0.85);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+}
+
+.item-galeria:hover .btn-eliminar {
+    opacity: 1;
+}
+
+.btn-eliminar:hover {
+    background: rgba(180, 0, 0, 1);
+}
+
+/* Mensaje cuando no hay fotos */
+
+.sin-fotos {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 2rem;
+}
+
+/* ─── Panel de subida de fotos ─────────────────────────────────────────────── */
+
+.subir-foto-panel {
+    background: #f4fbf0;
+    border: 1px solid #c5e8b3;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.subir-foto-panel h3 {
+    color: #38a338;
+    margin-bottom: 1rem;
+}
+
+.btn-subir {
+    background-color: #499632;
+    color: white;
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: background-color 0.3s;
+}
+
+.btn-subir:hover:not(:disabled) {
+    background-color: #387825;
+}
+
+.btn-subir:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ─── Formulario de comentarios ────────────────────────────────────────────── */
+
+.form-group {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: #38a338;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 0.7rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: Arial, sans-serif;
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #38a338;
+    box-shadow: 0 0 5px rgba(56, 163, 56, 0.3);
+}
+
+.btn-enviar {
+    background-color: #38a338;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.btn-enviar:hover {
+    background-color: #2d8a2d;
+}
+
+#lista-comentarios {
+    margin-top: 2rem;
+}
+
+#lista-comentarios h3 {
+    color: #38a338;
+    margin-bottom: 1rem;
+}
+
+#comentarios-container {
+    margin-top: 0.5rem;
+}
+
+.comentario {
+    background-color: #f9f9f9;
+    border-left: 4px solid #38a338;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+
+.comentario-autor {
+    font-weight: bold;
+    color: #38a338;
+    margin-bottom: 0.3rem;
+}
+
+.comentario-fecha {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 0.5rem;
+}
+
+.comentario-texto {
+    color: #333;
+    line-height: 1.5;
+}
+
+.sin-comentarios {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 2rem;
 }
