@@ -298,7 +298,7 @@ footer {
     cursor: not-allowed;
 }
 
-/* ─── Formulario de comentarios ────────────────────────────────────────────── */
+/* ─── Formulario de subida ─────────────────────────────────────────────────── */
 
 .form-group {
     margin-bottom: 1rem;
@@ -328,63 +328,3 @@ footer {
     box-shadow: 0 0 5px rgba(56, 163, 56, 0.3);
 }
 
-.btn-enviar {
-    background-color: #38a338;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 1rem;
-    transition: background-color 0.3s;
-}
-
-.btn-enviar:hover {
-    background-color: #2d8a2d;
-}
-
-#lista-comentarios {
-    margin-top: 2rem;
-}
-
-#lista-comentarios h3 {
-    color: #38a338;
-    margin-bottom: 1rem;
-}
-
-#comentarios-container {
-    margin-top: 0.5rem;
-}
-
-.comentario {
-    background-color: #f9f9f9;
-    border-left: 4px solid #38a338;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 4px;
-}
-
-.comentario-autor {
-    font-weight: bold;
-    color: #38a338;
-    margin-bottom: 0.3rem;
-}
-
-.comentario-fecha {
-    font-size: 0.85rem;
-    color: #999;
-    margin-bottom: 0.5rem;
-}
-
-.comentario-texto {
-    color: #333;
-    line-height: 1.5;
-}
-
-.sin-comentarios {
-    color: #999;
-    font-style: italic;
-    text-align: center;
-    padding: 2rem;
-}

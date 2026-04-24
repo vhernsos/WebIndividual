@@ -75,71 +75,11 @@ async function subirFoto(e) {
     }
 }
 
-// ─── Comentarios ──────────────────────────────────────────────────────────────
-
-async function cargarComentarios() {
-    try {
-        const res = await fetch('/api/comentarios');
-        const comentarios = await res.json();
-        const container = document.getElementById('comentarios-container');
-        container.innerHTML = '';
-
-        if (!comentarios.length) {
-            container.innerHTML = '<p class="sin-comentarios">Sé el primero en dejar un comentario sobre Nela 🐕</p>';
-            return;
-        }
-
-        comentarios.forEach(c => {
-            const fecha = new Date(c.fecha).toLocaleDateString('es-ES');
-            const div = document.createElement('div');
-            div.className = 'comentario';
-            div.innerHTML = `
-                <div class="comentario-autor">${c.nombre}</div>
-                <div class="comentario-fecha">${fecha}</div>
-                <div class="comentario-texto">${c.comentario}</div>
-            `;
-            container.appendChild(div);
-        });
-    } catch (err) {
-        console.error('Error cargando comentarios:', err);
-    }
-}
-
-async function enviarComentario(e) {
-    e.preventDefault();
-    const nombre = document.getElementById('nombre').value;
-    const email  = document.getElementById('email').value;
-    const comentario = document.getElementById('comentario').value;
-
-    try {
-        const res = await fetch('/api/comentarios', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, email, comentario })
-        });
-
-        if (res.ok) {
-            document.getElementById('formulario-comentario').reset();
-            cargarComentarios();
-        } else {
-            const data = await res.json();
-            alert('Error: ' + (data.error || 'No se pudo enviar el comentario'));
-        }
-    } catch (err) {
-        console.error('Error enviando comentario:', err);
-        alert('Error de conexión');
-    }
-}
-
 // ─── Init ──────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarFotos();
-    cargarComentarios();
 
     document.getElementById('form-subir-foto')
         .addEventListener('submit', subirFoto);
-
-    document.getElementById('formulario-comentario')
-        .addEventListener('submit', enviarComentario);
 });
