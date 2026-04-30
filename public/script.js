@@ -1,5 +1,3 @@
-// ─── Galería de fotos ─────────────────────────────────────────────────────────
-
 async function cargarFotos() {
     try {
         const res = await fetch('/api/fotos');
@@ -74,8 +72,6 @@ async function subirFoto(e) {
         btnSubmit.textContent = 'Subir foto';
     }
 }
-
-// ─── Init ──────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
     cargarFotos();

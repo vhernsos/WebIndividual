@@ -9,20 +9,17 @@ const fs = require('fs');
 const app = express();
 const PORT = 3000;
 
-// Ensure img/ folder exists
 const imgDir = path.join(__dirname, 'img');
 if (!fs.existsSync(imgDir)) {
     fs.mkdirSync(imgDir, { recursive: true });
 }
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static('.'));   // serves nela.html, styles.css, etc.
+app.use(express.static('.'));
 app.use('/public', express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(imgDir));
 
-// Multer – store uploaded photos in img/
 const storage = multer.diskStorage({
     destination: (req, file, cb) => cb(null, imgDir),
     filename: (req, file, cb) => {
@@ -39,8 +36,6 @@ const upload = multer({
         ok ? cb(null, true) : cb(new Error('Solo se permiten imágenes (jpeg, jpg, png, gif, webp)'));
     }
 });
-
-// ─── Base de datos ─────────────────────────────────────────────────────────────
 
 const db = new sqlite3.Database('./database.db', (err) => {
     if (err) console.error('Error abriendo BD:', err.message);
@@ -69,15 +64,10 @@ db.serialize(() => {
     `);
 });
 
-// ─── Ruta raíz ────────────────────────────────────────────────────────────────
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'nela.html'));
 });
 
-// ─── Rutas – Fotos ─────────────────────────────────────────────────────────────
-
-// GET /api/fotos – listar todas las fotos
 app.get('/api/fotos', (req, res) => {
     db.all('SELECT * FROM fotos ORDER BY fecha_subida DESC', (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -85,7 +75,6 @@ app.get('/api/fotos', (req, res) => {
     });
 });
 
-// POST /api/fotos – subir nueva foto
 app.post('/api/fotos', upload.single('foto'), (req, res) => {
     if (!req.file) return res.status(400).json({ error: 'No se ha subido ningún archivo' });
 
@@ -110,7 +99,6 @@ app.post('/api/fotos', upload.single('foto'), (req, res) => {
     );
 });
 
-// DELETE /api/fotos/:id – eliminar foto
 app.delete('/api/fotos/:id', (req, res) => {
     const { id } = req.params;
 
@@ -122,16 +110,12 @@ app.delete('/api/fotos/:id', (req, res) => {
         db.run('DELETE FROM fotos WHERE id = ?', [id], (err2) => {
             if (err2) return res.status(500).json({ error: err2.message });
 
-            // Remove the file (ignore errors if already gone)
             fs.unlink(filePath, () => {});
             res.json({ mensaje: 'Foto eliminada correctamente' });
         });
     });
 });
 
-// ─── Rutas – Comentarios ───────────────────────────────────────────────────────
-
-// GET /api/comentarios
 app.get('/api/comentarios', (req, res) => {
     db.all('SELECT * FROM comentarios ORDER BY fecha DESC', (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
@@ -139,7 +123,6 @@ app.get('/api/comentarios', (req, res) => {
     });
 });
 
-// POST /api/comentarios
 app.post('/api/comentarios', (req, res) => {
     const { nombre, email, comentario } = req.body;
     if (!nombre || !email || !comentario) {
@@ -155,8 +138,6 @@ app.post('/api/comentarios', (req, res) => {
         }
     );
 });
-
-// ─── Arrancar servidor ─────────────────────────────────────────────────────────
 
 app.listen(PORT, () => {
     console.log(`🚀 Servidor corriendo en http://localhost:${PORT}`);
